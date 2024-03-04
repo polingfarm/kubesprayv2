@@ -50,3 +50,6 @@ vsphere_datastore       = "vmw-nfs" # e.g. ssd-000000
 vsphere_server          = "vcenter.poling.local" # e.g. vsphere.server.com
 
 template_name = "templates/ubuntu/packer-ubuntu-20.04" # e.g. ubuntu-bionic-18.04-cloudimg
+
+vsphere_user = "administrator@home.local"
+vsphere_password = "Yobiesa01!"
