@@ -84,7 +84,7 @@ variable "master_memory" {
 }
 
 variable "master_disk_size" {
-  default = "20"
+  default = "40"
 }
 
 ## Worker ##
@@ -97,7 +97,7 @@ variable "worker_memory" {
   default = 8192
 }
 variable "worker_disk_size" {
-  default = "800"
+  default = "80"
 }
 
 ## HA Proxy ##
@@ -111,5 +111,5 @@ variable "haproxy_memory" {
 }
 
 variable "haproxy_disk_size" {
-  default = "20"
+  default = "40"
 }
