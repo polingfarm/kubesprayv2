@@ -84,7 +84,7 @@ variable "master_memory" {
 }
 
 variable "master_disk_size" {
-  default = "40"
+  default = "20"
 }
 
 ## Worker ##
@@ -111,5 +111,5 @@ variable "haproxy_memory" {
 }
 
 variable "haproxy_disk_size" {
-  default = "40"
+  default = "20"
 }
