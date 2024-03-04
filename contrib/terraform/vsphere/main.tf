@@ -38,12 +38,23 @@ resource "vsphere_resource_pool" "pool" {
   parent_resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id
 }
 
+resource "vsphere_folder" "folder" {
+  path = "${var.folder}"
+  type = "vm"
+  datacenter_id = "${data.vsphere_datacenter.dc.id}"
+}
+
 module "kubernetes" {
   source = "./modules/kubernetes-cluster"
 
   prefix = var.prefix
 
   machines = var.machines
+
+  ## HA Proxy ##
+  haproxy_cores     = var.haproxy_cores
+  haproxy_memory    = var.haproxy_memory
+  haproxy_disk_size = var.haproxy_disk_size
 
   ## Master ##
   master_cores     = var.master_cores

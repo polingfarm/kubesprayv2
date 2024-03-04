@@ -41,3 +41,8 @@ variable "master_disk_size" {}
 variable "worker_cores" {}
 variable "worker_memory" {}
 variable "worker_disk_size" {}
+
+## HA Proxy ##
+variable "haproxy_cores" {}
+variable "haproxy_memory" {}
+variable "haproxy_disk_size" {}

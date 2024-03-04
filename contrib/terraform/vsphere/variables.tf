@@ -97,5 +97,19 @@ variable "worker_memory" {
   default = 8192
 }
 variable "worker_disk_size" {
-  default = "100"
+  default = "800"
+}
+
+## HA Proxy ##
+
+variable "haproxy_cores" {
+  default = 2
+}
+
+variable "haproxy_memory" {
+  default = 2048
+}
+
+variable "haproxy_disk_size" {
+  default = "20"
 }
