@@ -11,6 +11,8 @@ variable "machines" {
   }))
 }
 
+variable "haproxy_vip" {}
+
 variable "network" {}
 
 variable "gateway" {}

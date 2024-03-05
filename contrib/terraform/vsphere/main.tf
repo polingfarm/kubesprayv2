@@ -109,3 +109,138 @@ resource "local_file" "inventory" {
   })
   filename = var.inventory_file
 }
+/*
+#===============================================================================
+# Template files
+#===============================================================================
+
+# HAProxy hostname and ip list template #
+data "template_file" "haproxy_hosts" {
+  count    = "${length(var.vm_haproxy_ips)}"
+  template = "${file("templates/ansible_hosts.tpl")}"
+
+  vars = {
+    hostname = "${var.prefix}-haproxy-${count.index}"
+    host_ip  = "${lookup(var.vm_haproxy_ips, count.index)}"
+  }
+}
+
+# Kubespray master hostname and ip list template #
+data "template_file" "kubespray_hosts_master" {
+  count    = "${length(var.vm_master_ips)}"
+  template = "${file("templates/ansible_hosts.tpl")}"
+
+  vars = {
+    hostname = "${var.prefix}-master-${count.index}"
+    host_ip  = "${lookup(var.vm_master_ips, count.index)}"
+  }
+}
+
+# Kubespray worker hostname and ip list template #
+data "template_file" "kubespray_hosts_worker" {
+  count    = "${length(var.vm_worker_ips)}"
+  template = "${file("templates/ansible_hosts.tpl")}"
+
+  vars = {
+    hostname = "${var.prefix}-worker-${count.index}"
+    host_ip  = "${lookup(var.vm_worker_ips, count.index)}"
+  }
+}
+
+# HAProxy hostname list template #
+data "template_file" "haproxy_hosts_list" {
+  count    = "${length(var.vm_haproxy_ips)}"
+  template = "${file("templates/ansible_hosts_list.tpl")}"
+
+  vars = {
+    hostname = "${var.prefix}-haproxy-${count.index}"
+  }
+}
+
+# Kubespray master hostname list template #
+data "template_file" "kubespray_hosts_master_list" {
+  count    = "${length(var.vm_master_ips)}"
+  template = "${file("templates/ansible_hosts_list.tpl")}"
+
+  vars = {
+    hostname = "${var.prefix}-master-${count.index}"
+  }
+}
+
+# Kubespray worker hostname list template #
+data "template_file" "kubespray_hosts_worker_list" {
+  count    = "${length(var.vm_worker_ips)}"
+  template = "${file("templates/ansible_hosts_list.tpl")}"
+
+  vars = {
+    hostname = "${var.prefix}-worker-${count.index}"
+  }
+}
+
+# HAProxy template #
+data "template_file" "haproxy" {
+  template = "${file("templates/haproxy.tpl")}"
+
+  vars = {
+    bind_ip = "${var.haproxy_vip}"
+  }
+}
+
+# HAProxy server backend template #
+data "template_file" "haproxy_backend" {
+  count    = "${length(var.vm_master_ips)}"
+  template = "${file("templates/haproxy_backend.tpl")}"
+
+  vars = {
+    prefix_server     = "${var.prefix}"
+    backend_server_ip = "${lookup(var.vm_master_ips, count.index)}"
+    count             = "${count.index}"
+  }
+}
+
+# Keepalived master template #
+data "template_file" "keepalived_master" {
+  template = "${file("templates/keepalived_master.tpl")}"
+
+  vars = {
+    virtual_ip = "${var.haproxy_vip}"
+  }
+}
+
+# Keepalived slave template #
+data "template_file" "keepalived_slave" {
+  template = "${file("templates/keepalived_slave.tpl")}"
+
+  vars = {
+    virtual_ip = "${var.haproxy_vip}"
+  }
+}
+
+#===============================================================================
+# Local Files
+#===============================================================================
+
+# Create Kubespray hosts.ini configuration file from Terraform templates #
+resource "local_file" "kubespray_hosts" {
+  content  = "${join("", data.template_file.haproxy_hosts.*.rendered)}${join("", data.template_file.kubespray_hosts_master.*.rendered)}${join("", data.template_file.kubespray_hosts_worker.*.rendered)}\n[haproxy]\n${join("", data.template_file.haproxy_hosts_list.*.rendered)}\n[kube-master]\n${join("", data.template_file.kubespray_hosts_master_list.*.rendered)}\n[etcd]\n${join("", data.template_file.kubespray_hosts_master_list.*.rendered)}\n[kube-node]\n${join("", data.template_file.kubespray_hosts_worker_list.*.rendered)}\n[k8s-cluster:children]\nkube-master\nkube-node"
+  filename = "config/hosts.ini"
+}
+
+# Create HAProxy configuration from Terraform templates #
+resource "local_file" "haproxy" {
+  content  = "${data.template_file.haproxy.rendered}${join("", data.template_file.haproxy_backend.*.rendered)}"
+  filename = "config/haproxy.cfg"
+}
+
+# Create Keepalived master configuration from Terraform templates #
+resource "local_file" "keepalived_master" {
+  content  = "${data.template_file.keepalived_master.rendered}"
+  filename = "config/keepalived-master.cfg"
+}
+
+# Create Keepalived slave configuration from Terraform templates #
+resource "local_file" "keepalived_slave" {
+  content  = "${data.template_file.keepalived_slave.rendered}"
+  filename = "config/keepalived-slave.cfg"
+}
+*/

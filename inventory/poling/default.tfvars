@@ -1,6 +1,6 @@
 prefix = "k8s"
 
-folder = "kubespray"
+folder = "kubesprayv2"
 
 inventory_file = "inventory.ini"
 
@@ -8,6 +8,8 @@ network = "kubespray"
 
 dns_primary = "10.0.20.72"
 dns_secondary = "10.0.100.42"
+
+haproxy_vip = "10.0.51.140"
 
 machines = {
   "haproxy-0" : {
