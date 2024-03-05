@@ -1,0 +1,17 @@
+---
+#Ansible Playbook to Distribute SSH Key
+
+- hosts: all
+  remote_user: rodney
+  gather_facts: false
+
+  tasks:
+
+#Distribute SSH Key
+  - name: place ssh key
+    authorized_key: 
+      user: rodney
+      state: present
+      key: "{{ lookup('file', '~/.ssh/id_ecdsa.pub') }}"
+    become: true
+    become_user: root
