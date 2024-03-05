@@ -37,13 +37,13 @@ resource "vsphere_resource_pool" "pool" {
   name                    = "${var.prefix}-cluster-pool"
   parent_resource_pool_id = data.vsphere_compute_cluster.compute_cluster.resource_pool_id
 }
-
+/*
 resource "vsphere_folder" "folder" {
   path = "${var.folder}"
   type = "vm"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
-
+*/
 module "kubernetes" {
   source = "./modules/kubernetes-cluster"
 
