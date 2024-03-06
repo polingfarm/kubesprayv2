@@ -1,7 +1,7 @@
 ---
 # Kubernetes dashboard
 # RBAC required. see docs/getting-started.md for access details.
-# dashboard_enabled: false
+dashboard_enabled: true
 
 # Helm deployment
 helm_enabled: false
@@ -13,7 +13,7 @@ registry_enabled: false
 # registry_disk_size: "10Gi"
 
 # Metrics Server deployment
-metrics_server_enabled: false
+metrics_server_enabled: true
 # metrics_server_container_port: 10250
 # metrics_server_kubelet_insecure_tls: true
 # metrics_server_metric_resolution: 15s
@@ -97,7 +97,7 @@ rbd_provisioner_enabled: false
 # rbd_provisioner_reclaim_policy: Delete
 
 # Nginx ingress controller deployment
-ingress_nginx_enabled: false
+ingress_nginx_enabled: true
 # ingress_nginx_host_network: false
 # ingress_nginx_service_type: LoadBalancer
 ingress_publish_status_address: ""
@@ -169,34 +169,34 @@ cert_manager_enabled: false
 #   - "--dns01-recursive-nameservers=1.1.1.1:53,8.8.8.8:53"
 
 # MetalLB deployment
-metallb_enabled: false
+metallb_enabled: true
 metallb_speaker_enabled: "{{ metallb_enabled }}"
 # metallb_version: v0.13.9
 # metallb_protocol: "layer2"
 # metallb_port: "7472"
 # metallb_memberlist_port: "7946"
-# metallb_config:
-#   speaker:
-#     nodeselector:
-#       kubernetes.io/os: "linux"
-#     tolerations:
-#       - key: "node-role.kubernetes.io/control-plane"
-#         operator: "Equal"
-#         value: ""
-#         effect: "NoSchedule"
-#   controller:
-#     nodeselector:
-#       kubernetes.io/os: "linux"
-#     tolerations:
-#       - key: "node-role.kubernetes.io/control-plane"
-#         operator: "Equal"
-#         value: ""
-#         effect: "NoSchedule"
-#   address_pools:
-#     primary:
-#       ip_range:
-#         - 10.5.0.0/16
-#       auto_assign: true
+metallb_config:
+  speaker:
+    nodeselector:
+      kubernetes.io/os: "linux"
+    tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Equal"
+        value: ""
+        effect: "NoSchedule"
+  controller:
+    nodeselector:
+      kubernetes.io/os: "linux"
+    tolerations:
+     - key: "node-role.kubernetes.io/control-plane"
+       operator: "Equal"
+       value: ""
+       effect: "NoSchedule"
+  address_pools:
+    primary:
+      ip_range:
+        - 10.0.51.200-10.0.51.250
+      auto_assign: true
 #     pool1:
 #       ip_range:
 #         - 10.6.0.0/16
@@ -205,8 +205,8 @@ metallb_speaker_enabled: "{{ metallb_enabled }}"
 #       ip_range:
 #         - 10.10.0.0/16
 #       auto_assign: true
-#   layer2:
-#     - primary
+  layer2:
+    - primary
 #   layer3:
 #     defaults:
 #       peer_port: 179
