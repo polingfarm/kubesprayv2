@@ -41,6 +41,11 @@ machines = {
     "node_type" : "worker",
     "ip" : "10.0.51.162", # e.g. 192.168.0.21
     "netmask" : "24"
+  },
+  "worker-3" : {
+    "node_type" : "worker",
+    "ip" : "10.0.51.163", # e.g. 192.168.0.21
+    "netmask" : "24"
   }
 }
 
